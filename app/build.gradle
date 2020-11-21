@@ -39,11 +39,11 @@ android {
 }
 
 dependencies {
-    def fragment_version = '1.2.1'
+    def fragment_version = '1.2.5'
     def robolectric_version = '4.3'
     def test_runner_version = '1.1.0'
     def test_core_version = '1.1.0'
-    def test_junit_version = '1.1.0'
+    def test_junit_version = '1.1.2'
     def test_rules_version = '1.1.0'
     def espresso_core_version = '3.1.0'
     def espresso_intents_version = '3.1.0'
@@ -64,11 +64,11 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     testImplementation 'junit:junit:4.13.1'
 
-    implementation "androidx.fragment:fragment:$fragment_version"
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
-    implementation "androidx.fragment:fragment-testing:$fragment_version"
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
 
     testImplementation "org.robolectric:robolectric:$robolectric_version"
     testImplementation "androidx.test:runner:$test_runner_version"
@@ -84,7 +84,7 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$test_rules_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
     androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_intents_version"
-    androidTestImplementation("com.android.support.test.espresso:$espresso_contrib_version") {
+    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:$espresso_contrib_version"){
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'support-v7'

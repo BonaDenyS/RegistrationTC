@@ -82,7 +82,7 @@ class AddressFragment() : Fragment() {
                 return@InputFilter source
             }
 
-            if (source.toString().matches(Regex("[a-zA-Z 1234567890]+"))) {
+            if (source.toString().matches(Regex("[a-zA-Z 1234567890/,.]+"))) {
                 source
             } else ""
         })
