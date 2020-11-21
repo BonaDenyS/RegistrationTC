@@ -7,4 +7,20 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Universal Colors -->
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGray">#7c7c7c</color>
+    <color name="colorLine">#dadada</color>
+    <color name="colorCyan">#17b2ca</color>
+    <color name="colorBlue">#154de7</color>
+    <color name="colorOrange">#f1662f</color>
+    <color name="colorYellow">#ffe100</color>
+    <color name="colorRed">#fa4343</color>
+    <color name="colorPurple">#9e30af</color>
+    <color name="colorGreen">#40dc38</color>
+    <color name="colorGraySoft">#8b8b8b</color>
+    <color name="colorGraySoft1">#ffd5d6d6</color>
+
+    <color name="colorDarkRed">#CD0A0A</color>
 </resources>
