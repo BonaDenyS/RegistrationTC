@@ -14,7 +14,7 @@ import com.bonadenys.registrationtc.model.Review
 import com.bonadenys.registrationtc.ui.SubmitCallback
 
 
-class ReviewFragment : Fragment() {
+class ReviewFragment: Fragment() {
 
     private var _binding: FragmentReviewBinding? = null
     private val binding get() = _binding!!

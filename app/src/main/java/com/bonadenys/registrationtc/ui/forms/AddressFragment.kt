@@ -21,7 +21,7 @@ import com.bonadenys.registrationtc.ui.SubmitCallback
 import com.bonadenys.registrationtc.util.FieldChecker
 
 
-class AddressFragment() : Fragment() {
+class AddressFragment: Fragment() {
 
     private var _binding: FragmentAddressBinding? = null
     private val binding get() = _binding!!

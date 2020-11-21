@@ -12,16 +12,15 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.bonadenys.registrationtc.databinding.FragmentIdentityBinding
+import com.bonadenys.registrationtc.dropdownlist.Education
 import com.bonadenys.registrationtc.model.ResponseField
 import com.bonadenys.registrationtc.model.User
 import com.bonadenys.registrationtc.ui.SubmitCallback
-import com.bonadenys.registrationtc.dropdownlist.Education
 import com.bonadenys.registrationtc.util.DateFormat
 import com.bonadenys.registrationtc.util.FieldChecker
 import com.google.android.material.datepicker.MaterialDatePicker
 
-@Suppress("DEPRECATION")
-class IdentityFragment : Fragment() {
+class IdentityFragment: Fragment() {
 
     private var _binding: FragmentIdentityBinding? = null
     private val binding get() = _binding!!
@@ -55,7 +54,8 @@ class IdentityFragment : Fragment() {
             } else ""
         }, LengthFilter(10))
 
-        val adapter = ArrayAdapter<Any?>(context!!, R.layout.simple_spinner_dropdown_item, Education.values())
+        val adapter =
+            ArrayAdapter<Any?>(requireContext(), R.layout.simple_spinner_dropdown_item, Education.values())
         binding.education.setAdapter(adapter)
         binding.education.setOnItemClickListener { _, _, position, _ ->
             user.education = Education.values()[position]
@@ -64,7 +64,7 @@ class IdentityFragment : Fragment() {
         binding.dateOfBirth.setOnClickListener {
             val builder = MaterialDatePicker.Builder.datePicker()
             val picker = builder.build()
-            picker.show(fragmentManager!!, picker.toString())
+            picker.show(parentFragmentManager, picker.toString())
             picker.addOnPositiveButtonClickListener {
                 user.dateOfBirth = DateFormat.convert(picker.headerText)
                 binding.dateOfBirth.setText(user.dateOfBirth)
