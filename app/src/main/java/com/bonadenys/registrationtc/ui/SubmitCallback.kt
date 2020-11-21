@@ -13,4 +13,5 @@ interface SubmitCallback {
         responseField: ResponseField,
         address: Address
     )
+    fun onReviewSubmit()
 }

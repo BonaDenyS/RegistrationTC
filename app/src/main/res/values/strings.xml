@@ -14,4 +14,6 @@
     <string name="housing_type">Housing Type</string>
     <string name="province">Province</string>
     <string name="no">No</string>
+    <string name="review_data_user">Review Data User</string>
+    <string name="address">Address</string>
 </resources>

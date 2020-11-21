@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bonadenys.registrationtc.data.ListProvince
 import com.bonadenys.registrationtc.model.Address
+import com.bonadenys.registrationtc.model.Review
 import com.bonadenys.registrationtc.model.User
 import com.bonadenys.registrationtc.service.APIService
 import com.bonadenys.registrationtc.service.ConnectionManager
@@ -16,10 +17,18 @@ import io.reactivex.schedulers.Schedulers
 class RegistrationViewModel : ViewModel() {
 
     private var provinceData: MutableLiveData<ListProvince> = MutableLiveData<ListProvince>()
+    private var reviewData: MutableLiveData<Review> = MutableLiveData<Review>()
 
     var user: User? = null
     var address: Address? = null
 
+    fun getReviewData(): MutableLiveData<Review> {
+        val review = Review()
+        review.user = user
+        review.address = address
+        reviewData.value = review
+        return reviewData
+    }
     fun getProvinceData(): MutableLiveData<ListProvince> {
         return provinceData
     }

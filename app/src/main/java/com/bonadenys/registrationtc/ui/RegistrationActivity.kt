@@ -13,6 +13,7 @@ import com.bonadenys.registrationtc.model.ResponseField
 import com.bonadenys.registrationtc.model.User
 import com.bonadenys.registrationtc.ui.forms.AddressFragment
 import com.bonadenys.registrationtc.ui.forms.IdentityFragment
+import com.bonadenys.registrationtc.ui.forms.ReviewFragment
 import com.google.android.material.snackbar.Snackbar
 
 class RegistrationActivity : AppCompatActivity(), SubmitCallback {
@@ -57,8 +58,11 @@ class RegistrationActivity : AppCompatActivity(), SubmitCallback {
                 switchTimelineView(1)
             }
             else -> {
+                val reviewFragment = ReviewFragment()
+                reviewFragment.setupCallback(this, binding.submit)
+                reviewFragment.setDataReview(viewModel.getReviewData())
+                fragment = reviewFragment
                 switchTimelineView(2)
-                binding.submit.visibility = View.GONE
             }
         }
 
@@ -130,5 +134,14 @@ class RegistrationActivity : AppCompatActivity(), SubmitCallback {
             Snackbar.make(this.binding.container, responseField.message, Snackbar.LENGTH_SHORT)
                 .show()
         }
+    }
+
+    override fun onReviewSubmit() {
+        Snackbar.make(
+            binding.container,
+            "Your data has been submitted. Thank You!!",
+            Snackbar.LENGTH_SHORT
+        ).show()
+        binding.submit.visibility = View.GONE
     }
 }
