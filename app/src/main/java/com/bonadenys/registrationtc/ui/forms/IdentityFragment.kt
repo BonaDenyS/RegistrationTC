@@ -1,14 +1,16 @@
 package com.bonadenys.registrationtc.ui.forms
 
+import android.R
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.InputFilter
-import androidx.fragment.app.Fragment
+import android.text.InputFilter.LengthFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
+import androidx.fragment.app.Fragment
 import com.bonadenys.registrationtc.databinding.FragmentIdentityBinding
 import com.bonadenys.registrationtc.model.ResponseField
 import com.bonadenys.registrationtc.model.User
@@ -18,7 +20,8 @@ import com.bonadenys.registrationtc.util.DateFormat
 import com.bonadenys.registrationtc.util.FieldChecker
 import com.google.android.material.datepicker.MaterialDatePicker
 
-class IdentityFragment() : Fragment() {
+@Suppress("DEPRECATION")
+class IdentityFragment : Fragment() {
 
     private var _binding: FragmentIdentityBinding? = null
     private val binding get() = _binding!!
@@ -38,12 +41,6 @@ class IdentityFragment() : Fragment() {
         this.submit = submit
     }
 
-    private fun dummy() {
-//        binding.nationalId.editText?.setText("1234567890123456")
-        binding.fullname.setText("Bona")
-        binding.bankAccount.setText("12345678")
-    }
-
     @SuppressLint("SimpleDateFormat")
     private fun initialView(): View {
         _binding = FragmentIdentityBinding.inflate(layoutInflater)
@@ -56,10 +53,9 @@ class IdentityFragment() : Fragment() {
             if (source.toString().matches(Regex("[a-zA-Z' ]+"))) {
                 source
             } else ""
-        }, InputFilter.LengthFilter(10))
+        }, LengthFilter(10))
 
-        val adapter =
-            ArrayAdapter<Any?>(context!!, android.R.layout.simple_spinner_dropdown_item, Education.values())
+        val adapter = ArrayAdapter<Any?>(context!!, R.layout.simple_spinner_dropdown_item, Education.values())
         binding.education.setAdapter(adapter)
         binding.education.setOnItemClickListener { _, _, position, _ ->
             user.education = Education.values()[position]

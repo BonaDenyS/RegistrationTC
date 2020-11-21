@@ -6,9 +6,12 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.bonadenys.registrationtc.R
 import com.bonadenys.registrationtc.databinding.ActivityRegistrationBinding
+import com.bonadenys.registrationtc.databinding.FragmentAddressBinding
 import com.bonadenys.registrationtc.databinding.FragmentIdentityBinding
+import com.bonadenys.registrationtc.model.Address
 import com.bonadenys.registrationtc.model.ResponseField
 import com.bonadenys.registrationtc.model.User
+import com.bonadenys.registrationtc.ui.forms.AddressFragment
 import com.bonadenys.registrationtc.ui.forms.IdentityFragment
 import com.google.android.material.snackbar.Snackbar
 
@@ -29,6 +32,7 @@ class RegistrationActivity : AppCompatActivity(), SubmitCallback {
         setContentView(binding.root)
 
         viewModel = RegistrationViewModel()
+        viewModel.getDataProvinceList()
     }
 
     override fun onResume() {
@@ -46,6 +50,10 @@ class RegistrationActivity : AppCompatActivity(), SubmitCallback {
                 switchTimelineView(0)
             }
             1 -> {
+                val addressFragment = AddressFragment()
+                addressFragment.setupCallback(this,binding.submit)
+                addressFragment.setProvinceData(viewModel.getProvinceData())
+                fragment = addressFragment
                 switchTimelineView(1)
             }
             else -> {
@@ -106,5 +114,21 @@ class RegistrationActivity : AppCompatActivity(), SubmitCallback {
                 .show()
         }
 
+    }
+
+    override fun onAlamatKTPSubmit(
+        binding: FragmentAddressBinding,
+        responseField: ResponseField,
+        address: Address
+    ) {
+        viewModel.address = address
+
+        if (responseField.isFullField) {
+            timeline++
+            timelineView()
+        } else {
+            Snackbar.make(this.binding.container, responseField.message, Snackbar.LENGTH_SHORT)
+                .show()
+        }
     }
 }
