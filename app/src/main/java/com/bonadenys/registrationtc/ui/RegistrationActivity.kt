@@ -6,11 +6,17 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.bonadenys.registrationtc.R
 import com.bonadenys.registrationtc.databinding.ActivityRegistrationBinding
+import com.bonadenys.registrationtc.databinding.FragmentIdentityBinding
+import com.bonadenys.registrationtc.model.ResponseField
+import com.bonadenys.registrationtc.model.User
+import com.bonadenys.registrationtc.ui.forms.IdentityFragment
 import com.google.android.material.snackbar.Snackbar
 
-class RegistrationActivity : AppCompatActivity() {
+class RegistrationActivity : AppCompatActivity(), SubmitCallback {
 
     private lateinit var binding: ActivityRegistrationBinding
+    private lateinit var fragment: Fragment
+    private lateinit var viewModel: RegistrationViewModel
     var timeline = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,13 +26,9 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun initialView() {
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
-
-        binding.submit.setOnClickListener {
-            timeline++
-            timelineView()
-        }
-
         setContentView(binding.root)
+
+        viewModel = RegistrationViewModel()
     }
 
     override fun onResume() {
@@ -35,9 +37,12 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun timelineView() {
-
+        fragment = Fragment()
         when (timeline) {
             0 -> {
+                val identityFragment = IdentityFragment()
+                identityFragment.setupCallback(this, binding.submit)
+                fragment = identityFragment
                 switchTimelineView(0)
             }
             1 -> {
@@ -48,6 +53,8 @@ class RegistrationActivity : AppCompatActivity() {
                 binding.submit.visibility = View.GONE
             }
         }
+
+        supportFragmentManager.beginTransaction().replace(binding.container.id, fragment).commit()
     }
 
     private fun switchTimelineView(timeline: Int) {
@@ -81,5 +88,23 @@ class RegistrationActivity : AppCompatActivity() {
         binding.layoutTimeline.timelineBallRight.background =
             getDrawable(R.drawable.round_ball_gray)
         binding.layoutTimeline.timelineLabelRight.setTextColor(getColor(R.color.colorGray))
+    }
+
+    override fun onDataDiriSubmit(
+        binding: FragmentIdentityBinding,
+        responseField: ResponseField,
+        user: User
+    ) {
+
+        viewModel.user = user
+
+        if (responseField.isFullField) {
+            timeline++
+            timelineView()
+        } else {
+            Snackbar.make(this.binding.container, responseField.message, Snackbar.LENGTH_SHORT)
+                .show()
+        }
+
     }
 }
